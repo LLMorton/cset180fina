@@ -70,5 +70,14 @@ def home():
     return render_template("homepage.html")
 
 
+@app.route('/Products')
+def products():
+    query = text("SELECT * FROM products")
+    with engine.connect() as conn:
+        products = conn.execute(query).fetchall()
+    return render_template('products.html', products=products)
+
+
 if __name__ == '__main__':
     app.run(debug=True)
+

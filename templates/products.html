@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+
+<body>
+<form method="post" action="{{ url_for('cart') }}">
+{% for product in products %}
+<div class="product {{ product.product_type }}">
+
+  <img src="{{ product.image }}" alt="{{ product.product_name }}" class="product-image">
+
+  <div class="product-details">
+    <h2 class="product-type">{{ product.product_type }}</h2>
+    <h3 class="product-name">{{ product.product_name }}</h3>
+    <p class="product-price">{{ product.product_cost }}</p>
+    <p class="product-vendor">Sold by {{ product.vendor_name }}</p>
+  </div>
+
+    <button type="submit">Add to cart</button>
+    <input type="hidden" name="product_id" value="{{ product.product_id }}">
+    <label for="Colors">Select a Color</label>
+    <select id="Colors" name="Colors">
+      <option value="Red">Red</option>
+      <option value="Green">Green</option>
+      <option value="Blue">Blue</option>
+      <option value="Black">Black</option>
+      <option value="White">White</option>
+    </select>
+
+    <label for="Size">Select a Size</label>
+    <select id="Size" name="Size">
+      <option value="Small">Small</option>
+      <option value="Medium">Medium</option>
+      <option value="Large">Large</option>
+      <option value="XL">XL</option>
+      <option value="XX Large">XX Large</option>
+    </select>
+</div>
+</body>
+</html>
