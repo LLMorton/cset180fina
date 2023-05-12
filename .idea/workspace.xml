@@ -4,10 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="21576583-1e0d-4669-aeea-8a1117636447" name="Changes" comment=".">
-      <change afterPath="$PROJECT_DIR$/templates/products.html" afterDir="false" />
+    <list default="true" id="21576583-1e0d-4669-aeea-8a1117636447" name="Changes" comment="changing up the prd stuff and make it work and trying to make the products display on my products page">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/products.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/products.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -69,13 +68,21 @@
       <option name="project" value="LOCAL" />
       <updated>1683810643558</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="changing up the prd stuff and make it work and trying to make the products display on my products page">
+      <created>1683826271668</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1683826271668</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="added all files" />
     <MESSAGE value="added a copyright in footer" />
     <MESSAGE value="." />
-    <option name="LAST_COMMIT_MESSAGE" value="." />
+    <MESSAGE value="changing up the prd stuff and make it work and trying to make the products display on my products page" />
+    <option name="LAST_COMMIT_MESSAGE" value="changing up the prd stuff and make it work and trying to make the products display on my products page" />
   </component>
 </project>
