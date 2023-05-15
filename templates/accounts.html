@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>accounts</title>
+    <style>
+body {
+background-size: 100%;
+background-repeat: no-repeat;
+}
+
+.accounts {
+display: block;
+background-color: black;
+color: white;
+width: %50;
+padding: 8px;
+border: 5px solid;
+margin: 5px 0 22px 0;
+margin-left: auto;
+margin-right: auto;
+text-align: center;
+}
+</style>
+</head>
+<body>
+
+
+{% for account in accounts %}
+<ul class="accounts">
+    User ID: {{ accounts[2] }}
+    <br>
+    First Name: {{ accounts[0] }}
+    <br>
+    Last Name: {{ accounts[1] }}
+    <br>
+    Username: {{ accounts[3] }}
+    <br>
+    Password: {{ accounts[4] }}
+    <br>
+    Email: {{ accounts[5] }}
+    <br>
+    Account Type: {{ accounts[6] }}
+</ul>
+{% endfor %}
+<br>
+    <ul>
+        <a href="/admin">BACK</a>
+    </ul>
+
+</body>
+</html>
