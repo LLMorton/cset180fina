@@ -13,6 +13,7 @@
 </head>
 
 <body>
+<div class ="whole">
 <form method="post" action="{{ url_for('products') }}">
 {% for product in products %}
 <div class="product {{ product.product_type }}">
@@ -52,5 +53,6 @@
 
 </form>
 {% endfor %}
+    </div>
 </body>
 </html>

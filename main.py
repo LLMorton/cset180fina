@@ -17,6 +17,11 @@ def q(str):
     return sum
 
 
+@app.route('/')
+def homep():
+    return render_template('landing.html')
+
+
 @app.route("/register", methods=['GET', 'POST'])
 def registration():
     if request.method == 'POST':
@@ -36,21 +41,32 @@ def registration():
         return render_template("base.html")
 
 
-@app.route('/login')
+@app.route("/login", methods=['GET', 'POST'])
 def login():
-    if request.method == ['GET', 'POST']:
+    if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
         acc_type = request.form['acc_type']
-
-        query = text("select * from accounts where username = :username AND password= :password and acc_type= :acc_type")
-        params = {"username": username, "password": password,  "acc_type": acc_type}
-        with engine.connect() as conn:
-            user = conn.execute(query, params).fetchone()
+        user_query = text("select * from accounts where username = :username AND password = :password AND acc_type = :acc_type")
+        params = {"username": username, "password": password, "acc_type": acc_type}
+        result = conn.execute(user_query, params)
+        user = result.fetchone()
         if user is None:
-            return redirect(url_for('login'))
-        else:
             return render_template('index.html')
+        else:
+            session['id'] = user[0]
+            session['username'] = user[1]
+            session['password'] = user[2]
+            session['email'] = user[0]
+            session['acc_type'] = user[3]
+            if user[3] == 'admin':
+                return render_template('Admin_Only.html')
+            elif user[3] == 'vendor':
+                return render_template('Admin_Vendor.html')
+            else:
+                return render_template('customer_dash.html')
+    else:
+        return render_template('index.html')
 
 
 @app.route('/login/logout')
@@ -64,29 +80,30 @@ def logout(none=None):
 
 @app.route("/dashboard")
 def dash():
-    return render_template("dashboard.html")
+    return render_template("customer_dash.html")
 
 
 @app.route("/home")
 def home():
-    query = text("SELECT * FROM accounts")
-    result = conn.execute(query)
-    accounts = []
+    accs = text("SELECT * FROM accounts")
+    result = conn.execute(accs)
+    accounts1 = []
     for row in result:
-        accounts.append(row)
-    return render_template("homepage.html")
+        accounts1.append(row)
+    return render_template("homepage.html", accounts1=accs)
 
 
-@app.route('/accounts')
-def get_accounts():
-    accs = conn.execute(text("select * from accounts")).all()
-    query = text("SELECT * FROM accounts")
-    result = conn.execute(query)
-    accounts = []
-    for row in result:
-        accounts.append(row)
-
-    return render_template('accounts.html', accounts=accs)
+@app.route('/accounts', methods=['GET','POST'])
+def Accounts():
+    if 'username' in session:
+        username = session['username']
+        query = text("SELECT * FROM accounts WHERE username = :username")
+        params = {'username': username}
+        with engine.connect() as conn:
+            accounts = conn.execute(query, params).fetchall()
+        return render_template('accounts.html', accounts=accounts)
+    else:
+        return redirect(url_for('login'))
 
 
 @app.route('/products')
