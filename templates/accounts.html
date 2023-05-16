@@ -2,48 +2,51 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>accounts</title>
+    <title>Accounts</title>
     <style>
-body {
-background-size: 100%;
-background-repeat: no-repeat;
-}
+        body {
+            background-color: #f8f8f8;
+            font-family: "Times New Roman", Times, serif;
+        }
 
-.accounts {
-display: block;
-background-color: black;
-color: white;
-width: %50;
-padding: 8px;
-border: 5px solid;
-margin: 5px 0 22px 0;
-margin-left: auto;
-margin-right: auto;
-text-align: center;
-}
-</style>
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .accounts {
+            background-color: #f1f1f1;
+            color: #000000;
+            padding: 8px;
+            border: 2px solid #dcdcdc;
+            margin-bottom: 20px;
+            text-align: center;
+            list-style: none;
+        }
+
+        .accounts li {
+            margin-bottom: 10px;
+        }
+    </style>
 </head>
 <body>
+<div class="container">
+    <h2> Your Account details</h2>
+    {% if accounts %}
+        {% for account in accounts %}
+            <ul class="accounts">
+                <li>Username: {{ account[1] }}</li>
+                <li>Password: {{ account[2] }}</li>
+                <li>Email: {{ account[0] }}</li>
+                <li>Account Type: {{ account[3] }}</li>
+            </ul>
+        {% endfor %}
+    {% else %}
+        <p>No accounts found.</p>
+    {% endif %}
 
-
-{% for account in accounts %}
-<ul class="accounts">
-    User ID: {{ accounts[2] }}
-    <br>
-    First Name: {{ accounts[0] }}
-    <br>
-    Last Name: {{ accounts[1] }}
-    <br>
-    Username: {{ accounts[3] }}
-    <br>
-    Password: {{ accounts[4] }}
-    <br>
-    Email: {{ accounts[5] }}
-    <br>
-    Account Type: {{ accounts[6] }}
-</ul>
-{% endfor %}
-<br>
-
+    <a href="customer_dash.html">back to home</a>
+</div>
 </body>
 </html>

@@ -3,8 +3,58 @@
 <head>
     <meta charset="UTF-8">
     <title>Admin Page</title>
-</head>
-<body>
+    <style>
+        body {
+            background-color: #f8f8f8;
+            font-family: "Times New Roman", Times, serif;
+        }
 
+        .navbar {
+            background-color: #333;
+            overflow: hidden;
+        }
+
+        .navbar a {
+            float: left;
+            color: #f2f2f2;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+            font-size: 17px;
+        }
+
+        .navbar a:hover {
+            background-color: #ddd;
+            color: black;
+        }
+
+        .navbar a.active {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        .content {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #f1f1f1;
+        }
+    </style>
+</head>
+
+<body>
+<div class="navbar">
+    <a href="#" class="active">Chat</a>
+    <a href="#">Add Product</a>
+    <a href="#">Edit Product</a>
+    <a href="#">Delete Product</a>
+    <a href="#">My Account</a>
+    <a href="#">Logout</a>
+</div>
+
+<div class="content">
+    <h2>Welcome to the Admin Page</h2>
+    <p>L. Morton Wholesale employees should strive to do their best and provide the services that the public expects to receive from L. Morton Wholesale. As an employee, it is important to uphold the company's values of excellence, professionalism, and customer satisfaction. By delivering high-quality products, maintaining strong communication, and addressing customer needs, we can ensure a positive experience for our customers.</p>
+</div>
 </body>
 </html>

@@ -1,3 +1,56 @@
+/* Reset default styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Body styles */
+body {
+  background-color: #000000;
+  color: #ffffff;
+  font-family: Times New Roman, sans-serif;
+}
+
+/* Header styles */
+header {
+  background-color: #000000;
+  padding: 20px;
+  text-align: center;
+}
+
+header h1 {
+  font-size: 24px;
+}
+
+/* Main content styles */
+main {
+  padding: 20px;
+}
+
+/* Links styles */
+a {
+  color: #ffffff;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* Footer styles */
+footer {
+  background-color: #000000;
+  padding: 20px;
+  text-align: center;
+  color: #ffffff;
+  font-size: 14px;
+}
+
+footer p {
+  margin-bottom: 10px;
+}
+
 * {box-sizing: border-box}
 
 .container {

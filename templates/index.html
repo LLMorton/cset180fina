@@ -2,43 +2,124 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>login</title>
-    <link rel="stylesheet" href="static/style.css">
+    <title>Login</title>
+    <style>
+        /* Reset default styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Times New Roman", serif;
+            background-color: #f5f5f5;
+        }
+
+        h1 {
+            text-align: center;
+            margin-top: 50px;
+            color: #8c2b36;
+        }
+
+        form {
+            max-width: 400px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .imgcontainer {
+            text-align: center;
+            margin: 24px 0 12px 0;
+        }
+
+        .avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+        }
+
+        .container {
+            padding: 16px;
+        }
+
+        label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        input[type="text"],
+        input[type="password"],
+        select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #e0e0e0;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+
+        button[type="submit"] {
+            padding: 10px 20px;
+            background-color: #8c2b36;
+            color: #ffffff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #612930;
+        }
+
+        .cancelbtn {
+            width: auto;
+            padding: 10px 18px;
+            background-color: #f44336;
+            color: #ffffff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .cancelbtn:hover {
+            background-color: #d32f2f;
+        }
+
+        .psw {
+            float: right;
+            margin-top: 16px;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 20px;
+            color: #333333;
+        }
+    </style>
 </head>
 <body>
-<h1>title</h1>
+<h1>Login</h1>
 <form action="{{ url_for('login') }}" method="post">
-  <div class="imgcontainer">
-    <img src="..." alt="picture" class="avatar">
-  </div>
+    <div class="imgcontainer">
+        <img src="..." alt="picture" class="avatar">
+    </div>
 
-  <div class="container">
-    <label for="username"><b>Username</b></label>
-    <input type="text" placeholder="Enter Username" name="username" required id="username">
+    <div class="container">
+        <label for="username"><b>Username</b></label>
+        <input type="text" placeholder="Enter Username" name="username" required id="username">
 
-    <label for="psw"><b>Password</b></label>
-    <input type="password" placeholder="Enter Password" name="password" required id="psw">
+        <label for="psw"><b>Password</b></label>
+        <input type="password" placeholder="Enter Password" name="password" required id="psw">
 
-       <label for="acc_type">Choose your account type:</label>
-    <select name="acc_type" id="acc_type">
-      <option value="vendor">vendor</option>
-      <option value="admin">admin</option>
-      <option value="customer">customer</option>
-    </select>
+        <label for="acc_type">Choose your account type:</label>
+        <select name="acc_type" id="acc_type">
+            <option value="vendor">vendor</option>
+            <option value="admin">admin</option>
+            <option value="customer">customer</option>
+        </select>
 
-    <button type="submit">Login</button>
-    <label>
-      <input type="checkbox" checked="checked" name="remember"> Remember me
-    </label>
-  </div>
-
-  <div class="container" style="background-color:#f1f1f1">
-    <button type="button" class="cancelbtn">cancel</button>
-    <span class="psw">Forgot <a href="#">password?</a></span>
-  </div>
-</form>
-</body>
-<footer>
-  copyright by L.Morton Art Supplies+
-</footer>
-</html>
+        <button type="submit">Login</button

@@ -1,17 +1,88 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>dashboard</title>
-</head>
-<header>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Customer Dashboard</title>
+  <style>
+    /* Reset default styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-</header>
+    /* Body styles */
+    body {
+      font-family: "Times New Roman", serif;
+      background-color: #f5f5f5;
+    }
+
+    /* Navigation bar styles */
+    .navbar {
+      background-color: #e0e0e0;
+      padding: 10px;
+    }
+
+    .navbar ul {
+      list-style: none;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .navbar li {
+      margin-right: 20px;
+    }
+
+    .navbar a {
+      text-decoration: none;
+      color: #333333;
+      font-weight: bold;
+    }
+
+    .navbar a:hover {
+      text-decoration: underline;
+    }
+
+    /* Dashboard container styles */
+    .dashboard-container {
+      max-width: 800px;
+      margin: 50px auto;
+      padding: 20px;
+      background-color: #ffffff;
+      border-radius: 5px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Dashboard content styles */
+    .dashboard-content {
+      margin-top: 20px;
+    }
+  </style>
+</head>
 <body>
-<h1> this is a dashboard</h1>
+  <div class="navbar">
+    <ul>
+      <li><a href="#home">Home</a></li>
+      <li><a href="/products">Shop</a></li>
+      <li><a href="#">My Orders</a></li>
+      <li><a href="/accounts">My Account</a></li>
+      <li><a href="/login/logout">Log Out</a></li>
+    </ul>
+  </div>
+
+  <div class="dashboard-container">
+    <h1>Welcome to the Customer Dashboard</h1>
+    <div class="dashboard-content">
+      <div class="#home">
+At L. Morton Wholesale, our customers are at the heart of everything we do. We deeply value the trust and loyalty you place in us, and we are committed to exceeding your expectations. We believe that great customer service is not just a goal but a mindset, and we go the extra mile to ensure your satisfaction. Our dedicated team is always ready to assist you, answer your questions, and provide personalized solutions tailored to your needs. We take pride in our wide selection of high-quality wholesale products, ensuring that you have access to the best options for your business. With L. Morton Wholesale, you can trust that we will consistently deliver exceptional service, reliable products, and a seamless experience. Your success is our success, and we will always do our utmost to serve you with care and excellence.
+      </div>
+    </div>
+  </div>
 
 </body>
-<footer>
-copyright by L.Morton Art Supplies+
+<footer style="background-color: #8c2b36; color: #ffffff; padding: 10px; text-align: center;">
+    &copy; L.Morton Wholesale, All Rights Reserved
 </footer>
+
 </html>

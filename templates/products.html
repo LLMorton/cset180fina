@@ -3,56 +3,160 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-  <style>
-    img {
-    height: 100px;
-    width: 100px;
-    align:center;
-    }
-  </style>
+    <style>
+        body {
+            background-color: #f8f8f8;
+            font-family: "Times New Roman", Times, serif;
+        }
+
+        .whole {
+            display: flex;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .products-row {
+            flex-grow: 1;
+            text-align: center;
+        }
+
+        .product {
+            display: inline-block;
+            background-color: #f1f1f1;
+            color: #000000;
+            padding: 20px;
+            margin-bottom: 20px;
+            text-align: center;
+            list-style: none;
+        }
+
+        .product-image {
+            height: 100px;
+            width: 100px;
+        }
+
+        .product-details {
+            margin-top: 10px;
+        }
+
+        .product-type {
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .product-name {
+            font-size: 16px;
+        }
+
+        .product-price {
+            font-size: 14px;
+        }
+
+        button {
+            margin-top: 10px;
+        }
+
+        select {
+            margin-top: 10px;
+        }
+
+        .dropdown {
+            display: inline-block;
+            position: relative;
+        }
+
+        .dropbtn {
+            background-color: #4CAF50;
+            color: white;
+            padding: 12px;
+            font-size: 16px;
+            border: none;
+            cursor: pointer;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+            z-index: 1;
+            right: 0;
+            text-align: center;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        .dropdown-content a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #f1f1f1;
+        }
+    </style>
 </head>
 
 <body>
-<div class ="whole">
-<form method="post" action="{{ url_for('products') }}">
-{% for product in products %}
-<div class="product {{ product.product_type }}">
+<div class="whole">
+    <div class="products-row">
+        <form method="post" action="{{ url_for('products') }}">
+            {% for product in products %}
+                <div class="product {{ product.product_type }}">
+                    <img src="{{ product.image }}" alt="{{ product.product_name }}" class="product-image">
 
-  <img src="{{ product.image }}" alt="{{ product.product_name }}" class="product-image" style="">
+                    <div class="product-details">
+                        <h2 class="product-type">{{ product.product_type }}</h2>
+                        <h3 class="product-name">{{ product.product_name }}</h3>
+                        <p class="product-price">{{ product.product_cost }}</p>
+                    </div>
 
-  <div class="product-details">
-    <h2 class="product-type">{{ product.product_type }}</h2>
-    <h3 class="product-name">{{ product.product_name }}</h3>
-    <p class="product-price">{{ product.product_cost }}</p>
-  </div>
+                    <button type="submit">Add to cart</button>
+                    <br>
 
-    <button type="submit">Add to cart</button>
-<br>
-    <label for="Colors">Select a Color</label>
-    <select id="Colors" name="product_color">
-      <option value="Red">Red</option>
-      <option value="Orange">Orange</option>
-      <option value="Yellow">Yellow</option>
-      <option value="Green">Green</option>
-      <option value="Blue">Blue</option>
-      <option value="Indigo">Indigo</option>
-      <option value="Violet">Violet</option>
-      <option value="Black">Black</option>
-      <option value="White">White</option>
-    </select>
-<br>
-    <label for="Size">Select a Size</label>
-    <select id="Size" name="product_size">
-      <option value="Small">Small</option>
-      <option value="Medium">Medium</option>
-      <option value="Large">Large</option>
-      <option value="XL">XL</option>
-      <option value="XX Large">XX Large</option>
-    </select>
+                    <label for="Colors">Select a Color</label>
+                    <select id="Colors" name="product_color">
+                        <option value="Red">Red</option>
+                        <option value="Orange">Orange</option>
+                        <option value="Yellow">Yellow</option>
+                        <option value="Green">Green</option>
+                        <option value="Blue">Blue</option>
+                        <option value="Indigo">Indigo</option>
+
+                    <option value="Violet">Violet</option>
+                    <option value="Black">Black</option>
+                    <option value="White">White</option>
+                </select>
+                <br>
+
+                <label for="Size">Select a Size</label>
+                <select id="Size" name="product_size">
+                    <option value="Small">Small</option>
+                    <option value="Medium">Medium</option>
+                    <option value="Large">Large</option>
+                    <option value="XL">XL</option>
+                    <option value="XX Large">XX Large</option>
+                </select>
+            </div>
+        {% endfor %}
+    </form>
 </div>
 
-</form>
-{% endfor %}
+<div class="dropdown">
+    <button class="dropbtn">Menu &#9662;</button>
+    <div class="dropdown-content">
+        <a href="#">Home</a>
+        <a href="#">Cart</a>
+        <a href="#">Empty Cart</a>
+        <a href="/logout">Logout</a>
     </div>
+</div>
+</div>
 </body>
 </html>

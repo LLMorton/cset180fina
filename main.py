@@ -78,21 +78,6 @@ def logout(none=None):
     return redirect(url_for('login'))
 
 
-@app.route("/dashboard")
-def dash():
-    return render_template("customer_dash.html")
-
-
-@app.route("/home")
-def home():
-    accs = text("SELECT * FROM accounts")
-    result = conn.execute(accs)
-    accounts1 = []
-    for row in result:
-        accounts1.append(row)
-    return render_template("homepage.html", accounts1=accs)
-
-
 @app.route('/accounts', methods=['GET','POST'])
 def Accounts():
     if 'username' in session:

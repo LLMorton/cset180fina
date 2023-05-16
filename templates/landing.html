@@ -2,10 +2,115 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>landing</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Landing Page</title>
+    <style>
+        /* Reset default styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Times New Roman", serif;
+            background-color: #f5f5f5;
+        }
+
+        h1 {
+            text-align: center;
+            margin: 50px auto;
+            color: #8c2b36;
+        }
+
+        nav {
+            background-color: #8c2b36;
+            padding: 20px;
+        }
+
+        nav ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+        }
+
+        nav ul li {
+            margin-right: 20px;
+        }
+
+        nav ul li a {
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+        .content {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .subtitle {
+            color: #8c2b36;
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+
+        .guarantee {
+            margin-bottom: 20px;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #8c2b36;
+            color: #ffffff;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .cta-button:hover {
+            background-color: #00001;
+        }
+    </style>
 </head>
 <body>
- the landing page
+<nav>
+    <ul>
+        <li><a href="#our-story">Our Story</a></li>
+        <li><a href="#shop-with-us">Shop with Us</a></li>
+        <li><a href="#register">Register</a></li>
+        <li><a href="#login">Login</a></li>
+        <li><a href="#our-policies">Our Policies</a></li>
+    </ul>
+</nav>
+
+<div class="content">
+    <h1>Welcome to Our Landing Page</h1>
+
+    <div id="our-story">
+        <h2 class="subtitle">Our Story</h2>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum vitae ultricies nisl. Aliquam erat
+            volutpat. Mauris ut justo ut velit volutpat semper eu ac orci. Aenean finibus tellus in sagittis lobortis.
+            Nulla non bibendum mauris, id tincidunt mi. Ut vitae vulputate nulla, vel fermentum lacus. Sed quis
+            lobortis arcu. Sed tincidunt convallis dui, ac pretium tortor porta sed.</p>
+    </div>
+
+    <div class="guarantee">
+        <h2 class="subtitle">Our Guarantee</h2>
+        <p>Lorem ipsum dolor sit amet, consectetur
+adipiscing elit. Vestibulum vitae ultricies nisl. Aliquam erat
+volutpat. Mauris ut justo ut velit volutpat semper eu ac orci. Aenean finibus tellus in sagittis lobortis.
+Nulla non bibendum mauris, id tincidunt mi.</p>
+    </div>
+    <a href="#shop-with-us" class="cta-button">Come Shop with Us</a>
+</div>
 </body>
 </html>
