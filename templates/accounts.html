@@ -28,6 +28,22 @@
         .accounts li {
             margin-bottom: 10px;
         }
+
+    .back-to-home {
+        display: inline-block;
+        padding: 10px 20px;
+        background-color: #8c2b36;
+        color: #ffffff;
+        border: none;
+        border-radius: 5px;
+        text-decoration: none;
+        font-weight: bold;
+    }
+
+    .back-to-home:hover {
+        background-color: #00001;
+    }
+
     </style>
 </head>
 <body>
@@ -46,7 +62,8 @@
         <p>No accounts found.</p>
     {% endif %}
 
-    <a href="customer_dash.html">back to home</a>
+ <a href="/dash" class="back-to-home">back to home</a>
+
 </div>
 </body>
 </html>

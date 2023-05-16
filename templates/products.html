@@ -53,8 +53,18 @@
             font-size: 14px;
         }
 
-        button {
+        .add-to-cart-button {
+            background-color: #8c2b36;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 14px;
             margin-top: 10px;
+            cursor: pointer;
+            border-radius: 5px;
         }
 
         select {
@@ -67,12 +77,13 @@
         }
 
         .dropbtn {
-            background-color: #4CAF50;
+            background-color: #8c2b36;
             color: white;
             padding: 12px;
             font-size: 16px;
             border: none;
             cursor: pointer;
+            border-radius: 5px;
         }
 
         .dropdown-content {
@@ -84,6 +95,7 @@
             z-index: 1;
             right: 0;
             text-align: center;
+            border-radius: 5px;
         }
 
         .dropdown:hover .dropdown-content {
@@ -106,7 +118,7 @@
 <body>
 <div class="whole">
     <div class="products-row">
-        <form method="post" action="{{ url_for('products') }}">
+        <form method="post" action="{{ url_for('add_to_cart') }}">
             {% for product in products %}
                 <div class="product {{ product.product_type }}">
                     <img src="{{ product.image }}" alt="{{ product.product_name }}" class="product-image">
@@ -117,18 +129,22 @@
                         <p class="product-price">{{ product.product_cost }}</p>
                     </div>
 
-                    <button type="submit">Add to cart</button>
-                    <br>
+                    <input type="hidden" name="product_name" value="{{ product.product_name }}">
 
-                    <label for="Colors">Select a Color</label>
-                    <select id="Colors" name="product_color">
-                        <option value="Red">Red</option>
-                        <option value="Orange">Orange</option>
-                        <option value="Yellow">Yellow</option>
-                        <option value="Green">Green</option>
-                        <option value="Blue">Blue</option>
-                        <option value="Indigo">Indigo</option>
+                <input type="hidden" name="product_color" value="{{ product.product_color }}">
+                <input type="hidden" name="product_size" value="{{ product.product_size }}">
 
+                <button type="submit" class="add-to-cart-button">Add to cart</button>
+                <br>
+
+                <label for="Colors">Select a Color</label>
+                <select id="Colors" name="product_color">
+                    <option value="Red">Red</option>
+                    <option value="Orange">Orange</option>
+                    <option value="Yellow">Yellow</option>
+                    <option value="Green">Green</option>
+                    <option value="Blue">Blue</option>
+                    <option value="Indigo">Indigo</option>
                     <option value="Violet">Violet</option>
                     <option value="Black">Black</option>
                     <option value="White">White</option>
@@ -151,10 +167,10 @@
 <div class="dropdown">
     <button class="dropbtn">Menu &#9662;</button>
     <div class="dropdown-content">
-        <a href="#">Home</a>
-        <a href="#">Cart</a>
+        <a href="/dash">Home</a>
+        <a href="/cart">Cart</a>
         <a href="#">Empty Cart</a>
-        <a href="/logout">Logout</a>
+        <a href="/login/logout">Logout</a>
     </div>
 </div>
 </div>

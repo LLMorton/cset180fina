@@ -99,6 +99,61 @@ def products():
     return render_template('products.html', products=products)
 
 
+@app.route('/dash')
+def dash():
+    return render_template('customer_dash.html')
+
+@app.route('/Admin_Only/add_product', methods = ['POST'])
+def add_product():
+    conn.execute(text("INSERT INTO products values(product_name,product_color,product_size, inventory, image, product_cost ,product_type)"), request.form)
+    return render_template('Admin_Edit.html')
+
+
+@app.route('/cart')
+def cart():
+    # Check if 'cart' exists in the session
+    if 'cart' in session:
+        cart_items = session['cart']
+    else:
+        cart_items = []
+
+    return render_template('cart.html', cart_items=cart_items)
+
+
+@app.route('/add_to_cart', methods=['POST'])
+def add_to_cart():
+    # Retrieve product details from the form
+    product_name = request.form['product_name']
+    product_color = request.form['product_color']
+    product_size = request.form['product_size']
+
+    # Create a dictionary to represent the product
+    product = {
+        'name': product_name,
+        'color': product_color,
+        'size': product_size
+    }
+
+    # Check if 'cart' exists in the session
+    if 'cart' in session:
+        # Retrieve the existing cart items
+        cart_items = session['cart']
+        cart_items.append(product)  # Add the new product to the cart
+        session['cart'] = cart_items  # Update the session with the updated cart
+    else:
+        # Create a new cart with the current product
+        session['cart'] = [product]
+
+    return redirect(url_for('cart'))
+
+
+@app.route('/cart/empty_cart')
+def empty_cart():
+    if 'cart' in session:
+        session.pop('cart')
+    return redirect(url_for('cart'))
+
+
 if __name__ == '__main__':
     app.run(debug=True)
 
