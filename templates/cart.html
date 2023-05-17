@@ -116,36 +116,6 @@
         }
     </style>
 </head>
-
-<body>
-<div class="container">
-    <h1>Cart</h1>
-    <ul>
-        {% for product in cart_items %}
-            <li class="cart-item">
-                <div class="product-details">
-                    <h2 class="product-name">{{ product.product_name }}</h2>
-                    <p class="product-color">{{ product.product_color }}</p>
-                    <p class="product-size">{{ product.product_size }}</p>
-                </div>
-                <a href="/remove_from_cart/{{ product.product_name }}" class="remove-button">Remove</a>
-            </li>
-{% endfor %}
-</ul>
-
-
-<button id="checkout-button" class="checkout-button">Checkout</button>
-
-<div class="dropdown">
-    <button class="dropbtn">Menu &#9662;</button>
-    <div class="dropdown-content">
-        <a href="/dash">Home</a>
-        <a href="/products">Products</a>
-        <a href="#">Empty Cart</a>
-        <a href="/login/logout">Logout</a>
-    </div>
-</div>
-</div>
 <script>
     document.getElementById('checkout-button').addEventListener('click', function() {
         var xhr = new XMLHttpRequest();
@@ -159,6 +129,58 @@
         xhr.send();
     });
 </script>
+
+<body>
+<div class="container">
+    <h1>Cart</h1>
+
+    <form action="POST action={{ url for"{{ url_for('cart') }}">
+    <ul>
+  <h1>Products</h1>
+  <table>
+    <tr>
+      <th>Name</th>
+      <th>Color</th>
+      <th>Size</th>
+      <th>Cost</th>
+      <th></th>
+    </tr>
+    {% for product in products %}
+      <tr>
+        <td>{{ product.product_name }}</td>
+        <td>{{ product.product_color }}</td>
+        <td>{{ product.product_size }}</td>
+        <td>{{ product.product_cost }}</td>
+        <td>
+          <form action="/add_to_cart" method="POST">
+            <input type="hidden" name="product_name" value="{{ product.product_name }}">
+            <input type="hidden" name="product_color" value="{{ product.product_color }}">
+            <input type="hidden" name="product_size" value="{{ product.product_size }}">
+            <input type="hidden" name="product_cost" value="{{ product.product_cost }}">
+            <input type="submit" value="Add to Cart">
+          </form>
+        </td>
+      </tr>
+    {% endfor %}
+  </table>
+
+
+</ul>
+</form>
+
+<button id="checkout-button" class="checkout-button">Checkout</button>
+
+<div class="dropdown">
+    <button class="dropbtn">Menu &#9662;</button>
+    <div class="dropdown-content">
+        <a href="/dash">Home</a>
+        <a href="/products">Products</a>
+        <a href="/cart/empty_cart">Empty Cart</a>
+        <a href="/login/logout">Logout</a>
+    </div>
+</div>
+</div>
+
 </body>
 <script></script>
 </html>
