@@ -121,37 +121,44 @@
 <div class="container">
     <h1>Cart</h1>
     <ul>
-        <li class="cart-item">
-            <img src="product_image.jpg" alt="Product" class="product-image">
-            <div class="product-details">
-                <h2 class="product-name">Product Name</h2>
-                <p class="product-price">$9.99</p>
-            </div>
-
-<button class="remove-button">Remove</button>
-</li>
-<li class="cart-item">
-<img src="product_image.jpg" alt="Product" class="product-image">
-<div class="product-details">
-<h2 class="product-name">Product Name</h2>
-<p class="product-price">$19.99</p>
-</div>
-<button class="remove-button">Remove</button>
-</li>
+        {% for product in cart_items %}
+            <li class="cart-item">
+                <div class="product-details">
+                    <h2 class="product-name">{{ product.product_name }}</h2>
+                    <p class="product-color">{{ product.product_color }}</p>
+                    <p class="product-size">{{ product.product_size }}</p>
+                </div>
+                <a href="/remove_from_cart/{{ product.product_name }}" class="remove-button">Remove</a>
+            </li>
+{% endfor %}
 </ul>
-<button class="checkout-button">Checkout</button>
 
+
+<button id="checkout-button" class="checkout-button">Checkout</button>
 
 <div class="dropdown">
     <button class="dropbtn">Menu &#9662;</button>
     <div class="dropdown-content">
         <a href="/dash">Home</a>
         <a href="/products">Products</a>
-        <a href="#">Cart</a>
         <a href="#">Empty Cart</a>
         <a href="/login/logout">Logout</a>
     </div>
 </div>
 </div>
+<script>
+    document.getElementById('checkout-button').addEventListener('click', function() {
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', '/checkout', true);
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                var response = xhr.responseText;
+                alert(response);
+            }
+        };
+        xhr.send();
+    });
+</script>
 </body>
+<script></script>
 </html>

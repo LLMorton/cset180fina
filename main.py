@@ -4,17 +4,16 @@ from sqlalchemy import create_engine, text
 app = Flask(__name__)
 conn_str = "mysql://root:lm091702@localhost/cset180"
 engine = create_engine(conn_str, echo=True)
-conn = engine.connect()
 
 app.config['SECRET_KEY'] = 'fireagatha2413.'
 
 
-def q(str):
+def q(s):
     alph = "abcdefghijklmnopqrstuvwxyz"
-    sum = 0
-    for char in str:
-        sum += alph.find(char) + 1
-    return sum
+    total = 0
+    for char in s:
+        total += alph.find(char) + 1
+    return total
 
 
 @app.route('/')
@@ -30,9 +29,15 @@ def registration():
         email = request.form['email']
         acc_type = request.form['acc_type']
         query = text(
-            "INSERT INTO accounts(username,password,email,acc_type)"
-            "VALUES(:username, :password, :email, :acc_type)")
-        params = {"username": username, "password": password, "email": email, "acc_type": acc_type}
+            "INSERT INTO accounts(username, password, email, acc_type) "
+            "VALUES(:username, :password, :email, :acc_type)"
+        )
+        params = {
+            "username": username,
+            "password": password,
+            "email": email,
+            "acc_type": acc_type
+        }
         with engine.connect() as conn:
             conn.execute(query, params)
             conn.commit()
@@ -47,21 +52,30 @@ def login():
         username = request.form['username']
         password = request.form['password']
         acc_type = request.form['acc_type']
-        user_query = text("select * from accounts where username = :username AND password = :password AND acc_type = :acc_type")
-        params = {"username": username, "password": password, "acc_type": acc_type}
-        result = conn.execute(user_query, params)
-        user = result.fetchone()
+        user_query = text(
+            "SELECT * FROM accounts WHERE username = :username AND password = :password AND acc_type = :acc_type"
+        )
+        params = {
+            "username": username,
+            "password": password,
+            "acc_type": acc_type
+        }
+        with engine.connect() as conn:
+            result = conn.execute(user_query, params)
+            user = result.fetchone()
+
         if user is None:
             return render_template('index.html')
         else:
             session['id'] = user[0]
             session['username'] = user[1]
             session['password'] = user[2]
-            session['email'] = user[0]
-            session['acc_type'] = user[3]
-            if user[3] == 'admin':
+            session['email'] = user[3]
+            session['acc_type'] = user[4]
+
+            if user[4] == 'admin':
                 return render_template('Admin_Only.html')
-            elif user[3] == 'vendor':
+            elif user[4] == 'vendor':
                 return render_template('Admin_Vendor.html')
             else:
                 return render_template('customer_dash.html')
@@ -70,16 +84,13 @@ def login():
 
 
 @app.route('/login/logout')
-def logout(none=None):
-    session.pop('logged in', none)
-    session.pop('id', none)
-    session.pop('username', none)
-
+def logout():
+    session.clear()
     return redirect(url_for('login'))
 
 
-@app.route('/accounts', methods=['GET','POST'])
-def Accounts():
+@app.route('/accounts', methods=['GET', 'POST'])
+def accounts():
     if 'username' in session:
         username = session['username']
         query = text("SELECT * FROM accounts WHERE username = :username")
@@ -103,57 +114,123 @@ def products():
 def dash():
     return render_template('customer_dash.html')
 
-@app.route('/Admin_Only/add_product', methods = ['POST'])
-def add_product():
-    conn.execute(text("INSERT INTO products values(product_name,product_color,product_size, inventory, image, product_cost ,product_type)"), request.form)
-    return render_template('Admin_Edit.html')
 
+@app.route('/Admin_Only/add_product', methods=['GET', 'POST'])
+def add_product():
+    if request.method == 'POST':
+        product_name = request.form['product_name']
+        product_color = request.form['product_color']
+        product_size = request.form['product_size']
+        query = text(
+        "INSERT INTO products (product_name, product_color, product_size) "
+        "VALUES (:product_name, :product_color, :product_size)"
+    )
+    params = {
+        "product_name": product_name,
+        "product_color": product_color,
+        "product_size": product_size,
+    }
+    with engine.connect() as conn:
+        conn.execute(query, params)
+        return redirect(url_for('products'))
+        return render_template('add_product.html')
+
+
+@app.route('/Admin_Only/edit_product/int:product_id', methods=['GET', 'POST'])
+def edit_product(product_id):
+    if request.method == 'POST':
+        product_name = request.form['product_name']
+        product_color = request.form['product_color']
+        product_size = request.form['product_size']
+        query = text(
+        "UPDATE products SET product_name = :product_name, "
+        "product_color = :product_color, product_size = :product_size "
+        "WHERE id = :product_id"
+    )
+    params = {
+        "product_id": product_id,
+        "product_name": product_name,
+        "product_color": product_color,
+        "product_size": product_size,
+    }
+    with engine.connect() as conn:
+        conn.execute(query, params)
+
+    return redirect(url_for('products'))
+    query = text("SELECT * FROM products WHERE id = :product_id")
+    params = {"product_id": product_id}
+    with engine.connect() as conn:
+        product = conn.execute(query, params).fetchone()
+        return render_template('edit_product.html', product=product)
+
+
+@app.route('/Admin_Only/delete_product/int:product_id', methods=['GET', 'POST'])
+def delete_product(product_id):
+    query = text("DELETE FROM products WHERE id = :product_id")
+    params = {"product_id": product_id}
+    with engine.connect() as conn:
+        conn.execute(query, params)
+        return redirect(url_for('products'))
 
 @app.route('/cart')
 def cart():
-    # Check if 'cart' exists in the session
     if 'cart' in session:
         cart_items = session['cart']
     else:
         cart_items = []
-
     return render_template('cart.html', cart_items=cart_items)
+
+
+
+@app.route('/remove_from_cart/<product_name>', methods=['GET'])
+def remove_from_cart(product_name):
+    if 'cart' in session:
+        cart_items = session['cart']
+        for item in cart_items:
+            if item.get('product_name') == product_name:
+                cart_items.remove(item)
+                session['cart'] = cart_items
+                return redirect(url_for('cart'))
 
 
 @app.route('/add_to_cart', methods=['POST'])
 def add_to_cart():
-    # Retrieve product details from the form
     product_name = request.form['product_name']
     product_color = request.form['product_color']
     product_size = request.form['product_size']
-
-    # Create a dictionary to represent the product
     product = {
-        'name': product_name,
-        'color': product_color,
-        'size': product_size
+        'product_name': product_name,
+        'product_color': product_color,
+        'product_size': product_size
     }
-
-    # Check if 'cart' exists in the session
     if 'cart' in session:
-        # Retrieve the existing cart items
         cart_items = session['cart']
-        cart_items.append(product)  # Add the new product to the cart
-        session['cart'] = cart_items  # Update the session with the updated cart
+        cart_items.append(product)
+        session['cart'] = cart_items
     else:
-        # Create a new cart with the current product
         session['cart'] = [product]
-
     return redirect(url_for('cart'))
+
 
 
 @app.route('/cart/empty_cart')
 def empty_cart():
     if 'cart' in session:
         session.pop('cart')
-    return redirect(url_for('cart'))
+        return redirect(url_for('cart'))
+
+
+@app.route('/checkout', methods=['GET'])
+def checkout():
+    if 'cart' in session:
+        cart_items = session['cart']
+        total_price = 0
+        for item in cart_items:
+            total_price += item['product_price']
+            session.pop('cart', None)
+            return f"Checkout completed successfully! Total price: {total_price}"
+            return "Your cart is empty. Please add items before checking out."
 
 
 if __name__ == '__main__':
     app.run(debug=True)
-
